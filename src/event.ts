@@ -1,6 +1,7 @@
 import browser from "webextension-polyfill";
 import { invertHash } from "./utils";
 import { LineDrawer, UIConfigs } from "./line";
+import { log, setLogEnable } from "./log";
 
 const uiconfig: UIConfigs = {
   direction: {
@@ -28,7 +29,6 @@ const uiconfig: UIConfigs = {
   },
 };
 
-let log = console.log;
 let loaded = false;
 
 // configs
@@ -47,11 +47,7 @@ async function loadOptions() {
   const response = await browser.runtime.sendMessage({ msg: "configs" });
   const { debug, colorCode, width, rocker, trail, gests, tips } = response.resp;
 
-  if (!debug) {
-    log = () => {};
-  } else {
-    log = console.log;
-  }
+  setLogEnable(debug);
 
   uiconfig.line = {
     enable: trail === true || trail === "true",

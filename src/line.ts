@@ -1,6 +1,7 @@
 import { clearUI, createUI, ui_direct, ui_tip, UIConfig, uiPos } from "./ui";
 import browser from "webextension-polyfill";
 import { getBrowserType, regURL } from "./utils";
+import { log } from "./log";
 
 const minlength = 10;
 
@@ -82,14 +83,13 @@ export class LineDrawer {
   #startY = 0;
 
   moved = false;
-  #_directionArray = "";
+  #directionArray = "";
   #win: Window;
   #drawPolyline: SVGPolylineElement | null = null;
   #drawSvgTag: SVGSVGElement | null = null;
   #lineConfig: UIConfig;
   #directionConfig: UIConfig;
   #tipConfig: UIConfig;
-  #log: Function;
 
   #selectElement: SelectionElement = {
     txt: "",
@@ -98,11 +98,10 @@ export class LineDrawer {
     innerText: "",
   };
 
-  constructor(e: MouseEvent, uiconfig: UIConfigs, log: Function) {
+  constructor(e: MouseEvent, uiconfig: UIConfigs) {
     this.#_lastX = e.clientX;
     this.#_lastY = e.clientY;
-    this.#_directionArray = "";
-    this.#log = log;
+    this.#directionArray = "";
 
     // if (supportDrag) {
     //   selectElement = initSelection(e);
@@ -191,21 +190,21 @@ export class LineDrawer {
 
     let direction =
       dx > dy ? (x < this.#_lastX ? "L" : "R") : y < this.#_lastY ? "U" : "D";
-    let lastDir = this.#_directionArray[this.#_directionArray.length - 1];
+    let lastDir = this.#directionArray[this.#directionArray.length - 1];
 
     if (direction != lastDir) {
-      this.#_directionArray += direction;
+      this.#directionArray += direction;
       if (this.#directionConfig.enable) {
         await ui_direct(
-          this.#_directionArray,
+          this.#directionArray,
           this.document,
           this.#directionConfig
         );
       }
       if (this.#tipConfig.enable) {
         await ui_tip(
-          tips[actions[this.#_directionArray]],
-          this.#_directionArray,
+          tips[actions[this.#directionArray]],
+          this.#directionArray,
           this.document,
           this.#tipConfig
         );
@@ -242,8 +241,8 @@ export class LineDrawer {
     _break: boolean,
     _timeout: number
   ) {
-    if (this.#_directionArray) {
-      this.#exeFunc(this.#_directionArray, actions, this.#log);
+    if (this.#directionArray) {
+      this.#exeFunc(this.#directionArray, actions);
       this.#stopMges(e, _break, _timeout);
     }
   }
@@ -262,7 +261,7 @@ export class LineDrawer {
     e.preventDefault();
   }
 
-  async #exeFunc(move: string, actions: Record<string, string>, log: Function) {
+  async #exeFunc(move: string, actions: Record<string, string>) {
     const action = actions[move];
     log("exeFunc", move, action);
     if (action) {
