@@ -263,7 +263,6 @@ export class LineDrawer {
 
   async #exeFunc(move: string, actions: Record<string, string>) {
     const action = actions[move];
-    log("exeFunc", move, action);
     if (action) {
       if (action == "back") {
         window.history.back();

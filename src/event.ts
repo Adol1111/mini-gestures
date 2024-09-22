@@ -103,7 +103,7 @@ function handleContextmenuEvent(e: MouseEvent) {
 }
 
 function lineDrawReady(e: MouseEvent) {
-  drawer = new LineDrawer(e, uiconfig, log);
+  drawer = new LineDrawer(e, uiconfig);
 
   let document = drawer.document;
   document.addEventListener("mousemove", handleMouseMoveEvent, false);
