@@ -1,0 +1,45 @@
+{
+  "{{chrome}}.manifest_version": 3,
+  "{{firefox}}.manifest_version": 2,
+  "icons": {
+    "16": "icon/16.png",
+    "32": "icon/32.png",
+    "48": "icon/48.png",
+    "96": "icon/96.png",
+    "128": "icon/128.png"
+  },
+  "{{chrome}}.permissions": ["tabs", "storage", "sessions"],
+  "{{firefox}}.permissions": ["tabs", "storage", "sessions"],
+  "{{chrome}}.content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/event.ts"],
+      "all_frames": true,
+      "run_at": "document_start"
+    }
+  ],
+  "{{firefox}}.content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/event.ts"],
+      "all_frames": true,
+      "run_at": "document_start"
+    }
+  ],
+  "{{chrome}}.options_page": "src/options/index.html",
+  "{{firefox}}.options_ui": {
+    "page": "src/options/index.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "{{chrome}}.service_worker": "src/background.ts",
+    "{{firefox}}.scripts": ["src/background.ts"]
+  },
+  "default_locale": "en",
+  "web_accessible_resources": [
+    {
+      "resources": ["image/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

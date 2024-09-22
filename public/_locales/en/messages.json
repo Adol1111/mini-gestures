@@ -1,0 +1,16 @@
+{
+  "back": { "message": "History Back" },
+  "forward": { "message": "History Forward" },
+  "reload": { "message": "Reload" },
+  "stop": { "message": "Stop Loading" },
+  "newtab": { "message": "Open New Tab" },
+  "closetab": { "message": "Close Current Tab" },
+  "closeback": { "message": "Close Background Tabs" },
+  "closeall": { "message": "Close Window" },
+  "reloadall": { "message": "Reload All Tabs" },
+  "nexttab": { "message": "Next Tab" },
+  "prevtab": { "message": "Previous Tab" },
+  "scrolltop": { "message": "Scroll to Top" },
+  "scrollbottom": { "message": "Scroll to Bottom" },
+  "lasttab": { "message": "Re-open Last Closed Tab" }
+}

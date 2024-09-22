@@ -1,0 +1,16 @@
+{
+  "back": { "message": "后退" },
+  "forward": { "message": "前进" },
+  "reload": { "message": "刷新" },
+  "stop": { "message": "停止加载" },
+  "newtab": { "message": "新建标签页" },
+  "closetab": { "message": "关闭当前标签页" },
+  "closeback": { "message": "关闭其他标签页" },
+  "closeall": { "message": "关闭窗口" },
+  "reloadall": { "message": "刷新所有标签页" },
+  "nexttab": { "message": "下一个标签页" },
+  "prevtab": { "message": "上一个标签页" },
+  "scrolltop": { "message": "滚动到顶部" },
+  "scrollbottom": { "message": "滚动到底部" },
+  "lasttab": { "message": "重新打开上次关闭的标签页" }
+}
