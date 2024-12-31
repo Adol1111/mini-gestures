@@ -79,12 +79,23 @@ async function handleMouseDownEvent(e: MouseEvent) {
 
 function handleMouseUpEvent(e: MouseEvent) {
   if (e.button == 2) {
-    if (drawer?.moved) {
+    if (!drawer) {
+      return;
+    }
+    if (drawer.moved) {
       drawer.runAction(e, ginv, _break, _timeout);
     } else {
       suppress--;
     }
     drawer?.clearUI();
+    drawer = null;
+  }
+}
+
+function handleMouseLeaveEvent(_: MouseEvent) {
+  if (drawer) {
+    suppress--;
+    drawer.clearUI();
     drawer = null;
   }
 }
@@ -114,6 +125,7 @@ function lineDrawReady(e: MouseEvent) {
 function initHandle() {
   document.addEventListener("mousedown", handleMouseDownEvent, false);
   document.addEventListener("mouseup", handleMouseUpEvent, false);
+  document.addEventListener("mouseleave", handleMouseLeaveEvent, false);
   document.addEventListener("mousemove", handleMouseMoveEvent, false);
   document.addEventListener("mouseover", handleMouseOverEvent, false);
   document.addEventListener("contextmenu", handleContextmenuEvent, false);
